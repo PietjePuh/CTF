@@ -1,11 +1,9 @@
 ---
-
-# 🔎 TryHackMe Walkthrough – Tcpdump Traffic Analysis
-
-> **Author:** PietjePuh  
-> **Date:** 2025-06-08  
-> **Room link:** [https://tryhackme.com/room/tcpdump](https://tryhackme.com/room/tcpdump)
-
+title: "TryHackMe Walkthrough – Tcpdump Traffic Analysis"
+author: "PietjePuh"
+date: 2025-06-08
+Room link: [https://tryhackme.com/room/tcpdump](https://tryhackme.com/room/tcpdump)
+YouTube reference: [Tcpdump Tutorial – Network Packet Analysis](https://www.youtube.com/watch?v=7hDvuuKN66U&t)
 ---
 
 ## 🎯 Objectives
@@ -28,110 +26,114 @@
 
 ---
 
-## 🧪 Analysis Steps
+## 🧪 Tasks & Questions
 
-### Q1. 🔍 How many packets use the ICMP protocol?
-```bash
-tcpdump -r traffic.pcap icmp | wc -l
-```
+### 🧪 Task 1: Tcpdump Essentials
 
-### Q2. 🧭 What is the IP address of the host that requested the MAC address of `192.168.124.137`?
-```bash
-tcpdump -r traffic.pcap arp -nn
-```
+#### Q0. 📚 What is the name of the library that is associated with tcpdump?
+
+<details>
+<summary>💡 Click to reveal explanation</summary>
+
+> Tcpdump relies on a packet capture library called **libpcap** to capture packets from network interfaces. It provides a portable framework for low-level network monitoring.
+
+</details>
+
+<details>
+<summary>✅ Click to reveal answer</summary>
+
+**Answer:** `libpcap`
+
+</details>
+
+#### Q1. 🧠 What option can you add to your command to display addresses only in numeric format?
+
+<details>
+<summary>💡 Click to reveal explanation</summary>
+
+> By default, `tcpdump` attempts to resolve IP addresses and ports into hostnames and service names, which can delay output and clutter the result. Using `-n` disables this behavior, improving readability and speed.
+
+</details>
+
+<details>
+<summary>✅ Click to reveal answer</summary>
+
+**Answer:** `-n`
+
+</details>
+
+---
+
+### 🧪 Task 2: Basic Packet Capture
+
+_This task introduced the use of flags like `-i` for interfaces, `-c` for packet counts, `-w` for saving, `-r` for reading, and `-v` for verbosity._
+
+#### Q1. 🧾 What is the standard required for handling credit card information?
+
+<details>
+<summary>💡 Click to reveal explanation</summary>
+
+> PCI DSS (Payment Card Industry Data Security Standard) is a widely accepted standard that ensures organizations that process, store, or transmit credit card information maintain a secure environment.
+
+</details>
+
+<details>
+<summary>✅ Click to reveal answer</summary>
+
+**Answer:** `PCI DSS`
+
+</details>
+
+---
+
+### 🧪 Task 3: Filtering Expressions
+
+#### Q1. 🔍 How many packets in traffic.pcap use the ICMP protocol?
+
+<details>
+<summary>💡 Click to reveal explanation</summary>
+
+> ICMP is commonly used for diagnostics like `ping`. You can count these packets with `tcpdump -r traffic.pcap icmp | wc -l`.
+
+</details>
+
+<details>
+<summary>✅ Click to reveal answer</summary>
+
+**Answer:** `26`
+
+</details>
+
+#### Q2. 🧭 What is the IP address of the host that asked for the MAC address of 192.168.124.137?
+
+<details>
+<summary>💡 Click to reveal explanation</summary>
+
+> Hint: Filter by ARP using `tcpdump -r traffic.pcap arp -nn | grep 192.168.124.137`
+
+</details>
+
+<details>
+<summary>✅ Click to reveal answer</summary>
+
 **Answer:** `192.168.124.148`
 
-### Q3. 🌐 What hostname (subdomain) appears in the first DNS query?
-```bash
-tcpdump -r traffic.pcap port 53
-```
+</details>
+
+#### Q3. 🌐 What hostname (subdomain) appears in the first DNS query?
+
+<details>
+<summary>💡 Click to reveal explanation</summary>
+
+> DNS queries reveal which domain a system is trying to reach. Use `tcpdump -r traffic.pcap port 53` to extract this.
+
+</details>
+
+<details>
+<summary>✅ Click to reveal answer</summary>
+
 **Answer:** `mirrors.rockylinux.org`
 
-### Q4. 🔁 How many packets have only the TCP Reset (RST) flag set?
-```bash
-tcpdump -r traffic.pcap "tcp[tcpflags] == tcp-rst" | wc -l
-```
-**Answer:** `57`
+</details>
 
-### Q5. 🚚 What is the IP address of the host that sent packets larger than 15000 bytes?
-```bash
-tcpdump -nn -r traffic.pcap 'greater 15000'
-```
-**Answer:** `185.117.80.53`
-
-### Q6. 🧱 What is the MAC address of the host that sent the ARP request?
-```bash
-tcpdump -nn -r traffic.pcap -e | grep ARP
-```
-**Answer:** `52:54:00:7c:d3:5b`
-
----
-
-## 💬 Useful Tcpdump Commands
-
-```bash
-# Capture from interface
-sudo tcpdump -i eth0
-sudo tcpdump -i any
-
-# Save output
-sudo tcpdump -w capture.pcap
-
-# Read from file
-tcpdump -r capture.pcap
-
-# Filter by host
-tcpdump host 192.168.1.1
-
-# Filter by port
-tcpdump port 80
-tcpdump port 53
-
-# Filter by protocol
-tcpdump icmp
-tcpdump arp
-```
-
-### Common Tcpdump Flags
-
-| Flag | Description |
-|------|-------------|
-| `-q` | Quick output; print brief packet information |
-| `-e` | Print the link-level (Ethernet) header |
-| `-A` | Show packet data in ASCII |
-| `-xx`| Show packet data in hexadecimal format only |
-| `-X` | Show packet headers and data in hex and ASCII |
-
----
-
-## 🎓 Learning Summary
-
-- Learned how to interpret ARP, DNS, and ICMP queries from raw traffic
-- Applied Tcpdump filters to isolate specific traffic patterns
-- Practiced parsing `.pcap` files with `tcpdump`, a CLI alternative to Wireshark
-- Used `man` pages to explore additional syntax: `man tcpdump`, `man pcap-filter` `man wc`
-
----
-
-## 🔗 References & Tools
-
-- [GTFOBins](https://gtfobins.github.io/)
-- [HackTricks](https://book.hacktricks.xyz/)
-- [Official Tcpdump Docs](https://www.tcpdump.org/)
-- [TryHackMe Room - Tcpdump](https://tryhackme.com/room/tcpdump)
-- [InfoSec Writeups](https://infosecwriteups.com/)
-- [WinDump for Windows](https://www.winpcap.org/windump/)
-
----
-
-## 📢 Want more?
-
-Follow me on:
-- GitHub: [github.com/PietjePuh](https://github.com/PietjePuh)
-- LinkedIn: [linkedin.com/in/tim-van-maurik-77060740](https://www.linkedin.com/in/tim-van-maurik-77060740/)
-
-*#TryHackMe #Tcpdump #NetworkForensics #CTF #PacketAnalysis #LinuxSecurity*
-
----
-
-> *This write-up is part of my continuous learning journey through TryHackMe. Each post is designed to document findings, boost retention, and help others in the cybersecurity community.*
+...

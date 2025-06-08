@@ -1,31 +1,116 @@
-****
+---
+author: "PietjePuh"
+date: 
+platform: TryHackMe
+room: "[Room Title](https://tryhackme.com/room/)"
+youtube: "[Optional YouTube Link]()"
+tags: [tryhackme, walkthrough]
+---
 
-# Metaspoit
-![alt text]()
+# 🧠 TryHackMe Walkthrough – [Room Title]
 
-**Source:** []()
+## 📌 Room Overview
+> Brief description of what this room covers.
 
-***Description:***
+---
 
+## 🎯 Objectives
+- [ ] Objective 1
+- [ ] Objective 2
+- [ ] Objective 3
 
-***Related Hosting Links***
+---
 
+## ⚙️ Setup
 
-***Special Notes:***
+| Setting       | Value        |
+|---------------|--------------|
+| Target IP     |              |
+| Difficulty    |              |
+| OS            |              |
+| Category      |              |
+| Tools         |              |
 
+---
 
-***Instructions:*** 
-  -   
-  - ![alt text]()
-  - ![alt text]()
-  - 
+## 📂 Table of Contents
+- [Task 1](#task-1)
+- [Task 2](#task-2)
+- ...
+- [Summary](#summary)
+- [Lessons Learned](#lessons-learned)
 
-***Flags:***
+---
 
+## 🤩 Task 1
 
-***Question:*** What is the question ?
-> help
 <details>
-  <summary>Click to reveal answer 😒</summary>
-  <p>The answer is .</p>
+<summary>💡 Explanation</summary>
+
+...
+
 </details>
+
+<details>
+<summary>💻 Commands</summary>
+
+```bash
+# Insert your commands here
+```
+
+</details>
+
+<details>
+<summary>✅ Answer</summary>
+
+**Answer:** `flag{}`
+
+</details>
+
+---
+
+## 🤩 Task 2
+
+<details>
+<summary>💡 Explanation</summary>
+
+...
+
+</details>
+
+<details>
+<summary>💻 Commands</summary>
+
+```bash
+# Insert your commands here
+```
+
+</details>
+
+<details>
+<summary>✅ Answer</summary>
+
+**Answer:** `flag{}`
+
+</details>
+
+---
+
+## 🗾 Summary
+
+| Task | Flag       | Notes              |
+|------|------------|--------------------|
+| 1    | `flag{}`   | ...                |
+| 2    | `flag{}`   | ...                |
+
+---
+
+## 📚 References
+
+- [Link 1]()
+- [Link 2]()
+
+---
+
+## 🧠 Lessons Learned
+- ...

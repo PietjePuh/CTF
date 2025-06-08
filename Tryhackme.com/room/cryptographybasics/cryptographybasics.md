@@ -1,4 +1,8 @@
 ---
+title: "Cryptography Basics – TryHackMe Walkthrough"
+author: "PietjePuh"
+date: 2025-06-08
+---
 
 # 🔐 TryHackMe Walkthrough – Cryptography Basics
 
@@ -54,10 +58,14 @@ bin2 = "1010"
 result = xor_binary(bin1, bin2)
 print(f"{bin1} ⊕ {bin2} = {result}")
 ```
-**Output:**
-```
-1001 ⊕ 1010 = 0011
-```
+<details>
+<summary>✅ Click to reveal answer</summary>
+
+**Answer:** `1001 ⊕ 1010 = 0011`
+
+> 💡 **Explanation:** XOR is used here to demonstrate how a simple symmetric encryption scheme works. The XOR of two binary strings flips bits where the key has 1s. This property makes XOR valuable for reversible encryption where applying the same key twice restores the original value.
+
+</details>
 
 ---
 
@@ -76,6 +84,15 @@ The modulo operator returns the remainder of a division.
 print(118613842 % 9091)  # Output: 3565
 print(60 % 12)           # Output: 0
 ```
+<details>
+<summary>✅ Click to reveal answer</summary>
+
+**Answer 1:** `118613842 % 9091 = 3565`  
+**Answer 2:** `60 % 12 = 0`
+
+> 💡 **Explanation:** Modulo is used to find the remainder after division and is essential in cryptography, especially for cyclic structures like key spaces and hash functions. For example, in modular arithmetic, many cryptographic operations rely on calculating with remainders rather than exact division.
+
+</details>
 
 ---
 
@@ -90,9 +107,9 @@ print(60 % 12)           # Output: 0
 ---
 
 ## 🔗 References
-- [TryHackMe Room – Cryptography Basics](https://tryhackme.com/room/cryptographybasics)
-- [Python int() Docs](https://docs.python.org/3/library/functions.html#int)
-- [WolframAlpha](https://www.wolframalpha.com/)
+- [TryHackMe Room – Cryptography Basics](https://tryhackme.com/room/cryptographybasics){:target="_blank"}
+- [Python int() Docs](https://docs.python.org/3/library/functions.html#int){:target="_blank"}
+- [WolframAlpha](https://www.wolframalpha.com/){:target="_blank"}
 
 ---
 
