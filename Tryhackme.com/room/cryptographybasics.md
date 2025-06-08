@@ -101,7 +101,7 @@ Example with key 3: `A → D`, `B → E`, ...
 
 Decrypt: `XRPCTCRGNEI` with shift 3
 
-#### Q1. 🔓 What’s the plaintext of `XRPCTCRGNEI` (Caesar +3)?
+#### What’s the plaintext of `XRPCTCRGNEI` (Caesar +3)?
 
 <details>
 <summary>💡 Click to reveal explanation</summary>
@@ -131,6 +131,5 @@ This room introduces fundamental concepts in cryptography using XOR, modulo, Cae
 For deeper study:
 - [CyberChef](https://gchq.github.io/CyberChef/) – powerful web tool
 - [Cryptopals Challenges](https://cryptopals.com/) – progressive cryptography tasks
-- [Caesar cipher - Wikipedia](https://en.wikipedia.org/wiki/Caesar_cipher){:target="_blank"}
-
-Let me know if you want this extended with Base64 or hashing examples next. ✅
+- [Caesar cipher - Wikipedia](https://en.wikipedia.org/wiki/Caesar_cipher)
+- [XOR cipher - Wikipedia](https://en.wikipedia.org/wiki/XOR_cipher)

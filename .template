@@ -1,11 +1,9 @@
----
 author: "PietjePuh"
 date: 
 platform: TryHackMe
 room: "[Room Title](https://tryhackme.com/room/)"
 youtube: "[Optional YouTube Link]()"
 tags: [tryhackme, walkthrough]
----
 
 # 🧠 TryHackMe Walkthrough – [Room Title]
 
@@ -33,21 +31,10 @@ tags: [tryhackme, walkthrough]
 
 ---
 
-## 📂 Table of Contents
-- [Task 1](#task-1)
-- [Task 2](#task-2)
-- ...
-- [Summary](#summary)
-- [Lessons Learned](#lessons-learned)
-
----
-
 ## 🤩 Task 1
 
 <details>
 <summary>💡 Explanation</summary>
-
-...
 
 </details>
 
@@ -62,9 +49,7 @@ tags: [tryhackme, walkthrough]
 
 <details>
 <summary>✅ Answer</summary>
-
-**Answer:** `flag{}`
-
+**Answer:** 
 </details>
 
 ---
