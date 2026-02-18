@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint (ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install ruff
+        run: pip install ruff
+
+      - name: Run ruff linter
+        run: ruff check scripts/ tests/
+
+      - name: Run ruff formatter check
+        run: ruff format --check scripts/ tests/
+
+  test:
+    name: Tests (pytest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Run pytest
+        run: pytest tests/ -v --tb=short
+
+  notebooks:
+    name: Validate Notebooks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install jupyter nbformat
+
+      - name: Validate notebook format
+        run: |
+          python -c "
+          import nbformat
+          import glob
+          import sys
+
+          notebooks = glob.glob('**/*.ipynb', recursive=True)
+          errors = []
+
+          for nb_path in notebooks:
+              try:
+                  with open(nb_path, 'r', encoding='utf-8') as f:
+                      nb = nbformat.read(f, as_version=4)
+                  print(f'OK: {nb_path} ({len(nb.cells)} cells)')
+              except Exception as e:
+                  errors.append(f'FAIL: {nb_path}: {e}')
+                  print(f'FAIL: {nb_path}: {e}')
+
+          if errors:
+              sys.exit(1)
+
+          print(f'Validated {len(notebooks)} notebook(s)')
+          "
