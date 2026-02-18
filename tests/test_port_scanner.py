@@ -7,6 +7,7 @@ import socket
 from unittest.mock import MagicMock, patch
 
 import pytest
+
 from scripts.port_scanner import (
     COMMON_SERVICES,
     ScanResult,
