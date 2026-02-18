@@ -4,17 +4,17 @@ Uses mock sockets to avoid actual network connections during testing.
 """
 
 import socket
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
 import pytest
 
 from scripts.port_scanner import (
+    COMMON_SERVICES,
+    ScanResult,
+    format_results,
     parse_port_range,
     scan_port,
     scan_target,
-    format_results,
-    ScanResult,
-    COMMON_SERVICES,
 )
 
 

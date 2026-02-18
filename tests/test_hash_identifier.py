@@ -1,8 +1,6 @@
 """Tests for hash_identifier module."""
 
-import pytest
-
-from scripts.hash_identifier import HashType, identify_hash, format_results
+from scripts.hash_identifier import HashType, format_results, identify_hash
 
 
 class TestIdentifyHash:

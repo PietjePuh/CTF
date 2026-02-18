@@ -11,7 +11,6 @@ Usage:
 """
 
 import base64
-import binascii
 import re
 import sys
 import urllib.parse
@@ -212,7 +211,7 @@ def detect_morse(data: str) -> DecodingResult | None:
         decoded_words = []
         for word in words:
             letters = word.strip().split()
-            decoded_word = "".join(morse_dict.get(l, "?") for l in letters)
+            decoded_word = "".join(morse_dict.get(ch, "?") for ch in letters)
             decoded_words.append(decoded_word)
 
         decoded = " ".join(decoded_words)

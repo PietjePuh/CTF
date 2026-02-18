@@ -17,7 +17,6 @@ import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 
-
 # Common service names for well-known ports
 COMMON_SERVICES: dict[int, str] = {
     21: "FTP",
