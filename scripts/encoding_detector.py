@@ -115,10 +115,12 @@ def detect_rot13(data: str) -> DecodingResult | None:
     if not re.match(r"^[a-zA-Z\s.,!?;:\-\'\"]+$", data.strip()):
         return None
 
-    decoded = data.translate(str.maketrans(
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-        "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm",
-    ))
+    decoded = data.translate(
+        str.maketrans(
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+            "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm",
+        )
+    )
 
     if is_printable_ascii(decoded):
         return DecodingResult("ROT13", decoded, "medium")
@@ -195,14 +197,42 @@ def detect_morse(data: str) -> DecodingResult | None:
         return None
 
     morse_dict = {
-        ".-": "A", "-...": "B", "-.-.": "C", "-..": "D", ".": "E",
-        "..-.": "F", "--.": "G", "....": "H", "..": "I", ".---": "J",
-        "-.-": "K", ".-..": "L", "--": "M", "-.": "N", "---": "O",
-        ".--.": "P", "--.-": "Q", ".-.": "R", "...": "S", "-": "T",
-        "..-": "U", "...-": "V", ".--": "W", "-..-": "X", "-.--": "Y",
-        "--..": "Z", "-----": "0", ".----": "1", "..---": "2",
-        "...--": "3", "....-": "4", ".....": "5", "-....": "6",
-        "--...": "7", "---..": "8", "----.": "9",
+        ".-": "A",
+        "-...": "B",
+        "-.-.": "C",
+        "-..": "D",
+        ".": "E",
+        "..-.": "F",
+        "--.": "G",
+        "....": "H",
+        "..": "I",
+        ".---": "J",
+        "-.-": "K",
+        ".-..": "L",
+        "--": "M",
+        "-.": "N",
+        "---": "O",
+        ".--.": "P",
+        "--.-": "Q",
+        ".-.": "R",
+        "...": "S",
+        "-": "T",
+        "..-": "U",
+        "...-": "V",
+        ".--": "W",
+        "-..-": "X",
+        "-.--": "Y",
+        "--..": "Z",
+        "-----": "0",
+        ".----": "1",
+        "..---": "2",
+        "...--": "3",
+        "....-": "4",
+        ".....": "5",
+        "-....": "6",
+        "--...": "7",
+        "---..": "8",
+        "----.": "9",
     }
 
     try:

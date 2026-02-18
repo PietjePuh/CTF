@@ -36,31 +36,55 @@ PREFIX_PATTERNS: list[tuple[str, HashType]] = [
 ]
 
 LENGTH_PATTERNS: list[tuple[int, str, list[HashType]]] = [
-    (32, r"^[a-fA-F0-9]{32}$", [
-        HashType("MD5", 0, "128-bit Message Digest"),
-        HashType("NTLM", 1000, "Windows NT LAN Manager"),
-        HashType("MD4", 900, "128-bit Message Digest 4"),
-    ]),
-    (40, r"^[a-fA-F0-9]{40}$", [
-        HashType("SHA-1", 100, "160-bit Secure Hash Algorithm 1"),
-        HashType("MySQL 4.1+", 300, "MySQL 4.1 and above"),
-    ]),
-    (56, r"^[a-fA-F0-9]{56}$", [
-        HashType("SHA-224", 1300, "224-bit SHA-2 family"),
-    ]),
-    (64, r"^[a-fA-F0-9]{64}$", [
-        HashType("SHA-256", 1400, "256-bit SHA-2 family"),
-        HashType("SHA3-256", 17400, "256-bit SHA-3 family"),
-        HashType("Keccak-256", 17800, "Keccak 256-bit"),
-    ]),
-    (96, r"^[a-fA-F0-9]{96}$", [
-        HashType("SHA-384", 10800, "384-bit SHA-2 family"),
-    ]),
-    (128, r"^[a-fA-F0-9]{128}$", [
-        HashType("SHA-512", 1700, "512-bit SHA-2 family"),
-        HashType("SHA3-512", 17600, "512-bit SHA-3 family"),
-        HashType("Whirlpool", 6100, "512-bit Whirlpool hash"),
-    ]),
+    (
+        32,
+        r"^[a-fA-F0-9]{32}$",
+        [
+            HashType("MD5", 0, "128-bit Message Digest"),
+            HashType("NTLM", 1000, "Windows NT LAN Manager"),
+            HashType("MD4", 900, "128-bit Message Digest 4"),
+        ],
+    ),
+    (
+        40,
+        r"^[a-fA-F0-9]{40}$",
+        [
+            HashType("SHA-1", 100, "160-bit Secure Hash Algorithm 1"),
+            HashType("MySQL 4.1+", 300, "MySQL 4.1 and above"),
+        ],
+    ),
+    (
+        56,
+        r"^[a-fA-F0-9]{56}$",
+        [
+            HashType("SHA-224", 1300, "224-bit SHA-2 family"),
+        ],
+    ),
+    (
+        64,
+        r"^[a-fA-F0-9]{64}$",
+        [
+            HashType("SHA-256", 1400, "256-bit SHA-2 family"),
+            HashType("SHA3-256", 17400, "256-bit SHA-3 family"),
+            HashType("Keccak-256", 17800, "Keccak 256-bit"),
+        ],
+    ),
+    (
+        96,
+        r"^[a-fA-F0-9]{96}$",
+        [
+            HashType("SHA-384", 10800, "384-bit SHA-2 family"),
+        ],
+    ),
+    (
+        128,
+        r"^[a-fA-F0-9]{128}$",
+        [
+            HashType("SHA-512", 1700, "512-bit SHA-2 family"),
+            HashType("SHA3-512", 17600, "512-bit SHA-3 family"),
+            HashType("Whirlpool", 6100, "512-bit Whirlpool hash"),
+        ],
+    ),
 ]
 
 

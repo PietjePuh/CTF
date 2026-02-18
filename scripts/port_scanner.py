@@ -149,10 +149,7 @@ def scan_target(
     open_ports: list[ScanResult] = []
 
     with ThreadPoolExecutor(max_workers=min(max_threads, len(ports))) as executor:
-        futures = {
-            executor.submit(scan_port, host, port, timeout): port
-            for port in ports
-        }
+        futures = {executor.submit(scan_port, host, port, timeout): port for port in ports}
 
         for future in as_completed(futures):
             result = future.result()
@@ -193,12 +190,14 @@ def main() -> None:
     )
     parser.add_argument("target", help="Target hostname or IP address")
     parser.add_argument(
-        "--ports", "-p",
+        "--ports",
+        "-p",
         default="1-1024",
         help="Port range to scan (default: 1-1024). Examples: '80', '1-1024', '22,80,443'",
     )
     parser.add_argument(
-        "--timeout", "-t",
+        "--timeout",
+        "-t",
         type=float,
         default=1.0,
         help="Connection timeout in seconds (default: 1.0)",

@@ -20,9 +20,7 @@ class TestIdentifyHash:
 
     def test_sha256_hash(self) -> None:
         """SHA-256 hashes are 64 hex characters."""
-        result = identify_hash(
-            "9eb7ee7f551d2f0ac684981bd1f1e2fa4a37590199636753efe614d4db30e8e1"
-        )
+        result = identify_hash("9eb7ee7f551d2f0ac684981bd1f1e2fa4a37590199636753efe614d4db30e8e1")
         names = [r.name for r in result]
         assert "SHA-256" in names
 
@@ -35,18 +33,14 @@ class TestIdentifyHash:
 
     def test_bcrypt_hash(self) -> None:
         """bcrypt hashes start with $2a$, $2b$, or $2y$."""
-        result = identify_hash(
-            "$2a$06$7yoU3Ng8dHTXphAg913cyO6Bjs3K5lBnwq5FJyA6d01pMSrddr1ZG"
-        )
+        result = identify_hash("$2a$06$7yoU3Ng8dHTXphAg913cyO6Bjs3K5lBnwq5FJyA6d01pMSrddr1ZG")
         assert len(result) == 1
         assert result[0].name == "bcrypt"
         assert result[0].hashcat_mode == 3200
 
     def test_sha512crypt_hash(self) -> None:
         """sha512crypt hashes start with $6$."""
-        result = identify_hash(
-            "$6$GQXVvW4EuM$ehD6jWiMsfNorxy5SINsgdlxmAEl3.yif0/c3NqzGLa0P.S7KRD"
-        )
+        result = identify_hash("$6$GQXVvW4EuM$ehD6jWiMsfNorxy5SINsgdlxmAEl3.yif0/c3NqzGLa0P.S7KRD")
         assert len(result) == 1
         assert result[0].name == "sha512crypt"
         assert result[0].hashcat_mode == 1800
@@ -91,9 +85,7 @@ class TestIdentifyHash:
 
     def test_prefix_patterns_take_priority(self) -> None:
         """Prefix-based patterns should be returned before length-based ones."""
-        result = identify_hash(
-            "$2b$12$WowwhatahashthisisnotREALbutitslongenoughfor"
-        )
+        result = identify_hash("$2b$12$WowwhatahashthisisnotREALbutitslongenoughfor")
         if result:
             assert result[0].name == "bcrypt"
 

